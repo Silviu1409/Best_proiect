@@ -857,6 +857,7 @@ GameObject:
   - component: {fileID: 1500651113}
   - component: {fileID: 1500651112}
   - component: {fileID: 1500651115}
+  - component: {fileID: 1500651116}
   m_Layer: 6
   m_Name: Gun
   m_TagString: Untagged
