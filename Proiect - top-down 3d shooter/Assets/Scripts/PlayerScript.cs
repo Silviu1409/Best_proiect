@@ -4,29 +4,38 @@ using UnityEngine;
 
 public class PlayerScript : MonoBehaviour
 {
-    [Range(2f, 5f)]
-    public float movementSpeed = 2f;
+    [SerializeField]
+    [Range(5f, 15f)]
+    float movementSpeed = 5f;    //viteza de deplasare a playerului
+
+    Rigidbody rb;                //componenta Rigidbody a playerului
 
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody>();
     }
 
     void Update()
     {
-        HandleMovementInput();
         HandleReset();
     }
 
+    void FixedUpdate()
+    {
+        HandleMovementInput();
+    }
+
+    //functia de deplasare a playerului, folosind arrow keys/wasd
     void HandleMovementInput()
     {
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
-        Vector3 _movement = new Vector3(h, 0, v);
-        transform.Translate(_movement * movementSpeed * Time.deltaTime, Space.World);
+        //deplasarea se face folosind componenta de rigidbody
+        rb.velocity = new Vector3(h, rb.velocity.y, v) * movementSpeed;
     }
 
+    //functia cu ajutorul careia playerul isi da reset la pozitia de start a jocului
     void HandleReset()
     {
         if (Input.GetKey(KeyCode.R))
