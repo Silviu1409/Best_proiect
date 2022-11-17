@@ -13,14 +13,14 @@ public class PlayerScript : MonoBehaviour
     float jumpForce = 1f;        //player's jump force
 
     bool isGrounded;             //is player on the ground or not
-    Rigidbody rb;               //player rigidbody
+    Rigidbody rb;                //player rigidbody
 
     [SerializeField]
-    LayerMask groundLayer;      //layer to be detected as ground
+    LayerMask groundLayer;       //layer to be detected as ground
 
     [SerializeField]
     [Range(1f, 2f)]
-    float groundDistance = 1f;  //distance from player body to ground
+    float groundDistance = 1f;   //distance from player body to ground
 
     void Start()
     {
@@ -51,8 +51,7 @@ public class PlayerScript : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
-        Vector3 moveVector = transform.TransformDirection(new Vector3(h, 0f, v)) * movementSpeed;
-        rb.velocity = new Vector3(moveVector.x, rb.velocity.y, moveVector.z);
+        rb.velocity = new Vector3(h * movementSpeed, rb.velocity.y, v * movementSpeed);
     }
 
     //Player jump
@@ -75,7 +74,7 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    //functia cu ajutorul careia playerul poate trage cu arma la left click
+    //Player shoots with gun using left click
     void HandleShootInput()
     {
         if (Input.GetMouseButton(0))
@@ -84,7 +83,7 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    //rotate player with gun barrel 
+    //Rotate player with gun barrel 
     void HandleRotationInput()
     {
         RaycastHit _hit;
@@ -93,7 +92,6 @@ public class PlayerScript : MonoBehaviour
         if (Physics.Raycast(_ray, out _hit))
         {
             transform.LookAt(new Vector3(_hit.point.x, transform.position.y, _hit.point.z));
-            
         }
     }
 }
