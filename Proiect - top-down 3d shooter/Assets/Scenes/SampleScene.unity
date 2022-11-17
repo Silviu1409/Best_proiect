@@ -660,7 +660,7 @@ GameObject:
   - component: {fileID: 1399010263}
   - component: {fileID: 1399010264}
   - component: {fileID: 1399010268}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -680,6 +680,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementSpeed: 10
+  jumpForce: 5
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  groundDistance: 1.241
 --- !u!136 &1399010264
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -789,7 +794,7 @@ GameObject:
   - component: {fileID: 1500651113}
   - component: {fileID: 1500651112}
   - component: {fileID: 1500651115}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -902,7 +907,7 @@ GameObject:
   - component: {fileID: 1922853668}
   - component: {fileID: 1922853667}
   - component: {fileID: 1922853666}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
