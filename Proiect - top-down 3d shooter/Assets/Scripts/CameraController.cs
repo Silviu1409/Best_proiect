@@ -5,25 +5,25 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     [SerializeField]
-    Transform target;               //targetul camerei
+    Transform target;
 
     [SerializeField]
-    Vector3 targetOffset;           //distanta de la target la camera
+    Vector3 targetOffset;
 
     [SerializeField]
     [Range(2f, 5f)]
-    float movementSpeed = 5f;       //viteza cu care camera se va deplasa
+    float movementSpeed = 5f;
 
     [SerializeField]
     [Range(10f, 30f)]
-    float minFOV = 25f;             //FOV-ul minim al camerei(Zoom in maxim)
+    float minFOV = 25f;             //max zoom in
 
     [SerializeField]
     [Range(70f, 90f)]
-    float maxFOV = 75f;             //FOV-ul maxim al camerei(Zoom out maxim)
+    float maxFOV = 75f;             //max zoom out
 
     [SerializeField]
-    float zoomSensitivity = 10f;    //sensitivitatea la scroll pentru zoom in/out
+    float zoomSensitivity = 10f;    //scroll sensitivity for zooming
 
     void Update()
     {
@@ -31,13 +31,13 @@ public class CameraController : MonoBehaviour
         HandleZoomInOut();
     }
 
-    //functia de deplasare a camerei in functie de target
+    //Camera movement
     void MoveCamera()
     {
         transform.position = Vector3.Lerp(transform.position, target.position + targetOffset, movementSpeed * Time.deltaTime);
     }
 
-    //functia ce se ocupa de zoom in si zoom out la mouse scroll
+    //Zoom in and out
     void HandleZoomInOut()
     {
         float fov = Camera.main.fieldOfView;
