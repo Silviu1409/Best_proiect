@@ -35,6 +35,7 @@ public class PlayerScript : MonoBehaviour
         isGrounded = Physics.CheckSphere(transform.position, groundDistance, groundLayer);
 
         HandleJump();
+        HandleShootInput();
     }
 
     void FixedUpdate()
@@ -69,6 +70,15 @@ public class PlayerScript : MonoBehaviour
         {
             //resets player to the center of the map
             transform.position = new Vector3(0, 1f, 0);
+        }
+    }
+
+    //functia cu ajutorul careia playerul poate trage cu arma la left click
+    void HandleShootInput()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            GunScript.Instance.Shoot();
         }
     }
 }
