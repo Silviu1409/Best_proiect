@@ -19,11 +19,13 @@ public class PlayerScript : MonoBehaviour
     {
         HandleReset();
         HandleShootInput();
+        
     }
 
     void FixedUpdate()
     {
         HandleMovementInput();
+        HandleRotationInput();
     }
 
     //functia de deplasare a playerului, folosind arrow keys/wasd
@@ -51,6 +53,19 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             GunScript.Instance.Shoot();
+        }
+    }
+
+    //rotate player with gun barrel 
+    void HandleRotationInput()
+    {
+        RaycastHit _hit;
+        Ray _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(_ray, out _hit))
+        {
+            transform.LookAt(new Vector3(_hit.point.x, transform.position.y, _hit.point.z));
+            
         }
     }
 }
