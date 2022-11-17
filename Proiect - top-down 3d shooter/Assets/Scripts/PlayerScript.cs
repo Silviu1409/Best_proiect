@@ -18,6 +18,7 @@ public class PlayerScript : MonoBehaviour
     void Update()
     {
         HandleReset();
+        HandleShootInput();
     }
 
     void FixedUpdate()
@@ -41,6 +42,15 @@ public class PlayerScript : MonoBehaviour
         if (Input.GetKey(KeyCode.R))
         {
             transform.position = new Vector3(0, 1f, 0);
+        }
+    }
+
+    //functia cu ajutorul careia playerul poate trage cu arma la left click
+    void HandleShootInput()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            GunScript.Instance.Shoot();
         }
     }
 }
