@@ -5,18 +5,18 @@ using UnityEngine;
 public class GunScript : MonoBehaviour
 {
     [SerializeField]
-    Transform firingPoint;              //punctul din care pleaca glontul
+    Transform firingPoint;              //bullet firing point
 
     [SerializeField]
-    GameObject projectilePrefab;        //prefab-ul glontului
+    GameObject projectilePrefab;        //bullet prefab
 
     [SerializeField]
     [Range(1f, 10f)]
-    float firingSpeed;                  //perioada la care playerul poate trage cu arma
+    float firingSpeed;
 
-    public static GunScript Instance;   //instanta a unui obiect de tip GunScript
-    float lastTimeShot = 0;             //timpul la care playerul a tras ultima data cu arma in joc
-    GameObject _parent;                 //gameobject in care toate clonele ale gloantelor generate sa fie puse ca child
+    public static GunScript Instance;   //GunScript object instance
+    float lastTimeShot = 0;             //last time the player shot with the gun
+    GameObject _parent;                 //gameobject where all the generated bullets will be placed as childs
 
     void Awake()
     {
@@ -30,13 +30,13 @@ public class GunScript : MonoBehaviour
 
     public void Shoot()
     {
-        //firing rate-ul minim va fi 1/firingSpeed secunde
+        //Minimum time between two shots will be 1/firingSpeed seconds
         if (lastTimeShot + 1 / firingSpeed <= Time.time && PlayerScript.noOfBulletsInRound > 0)
         {
             PlayerScript.noOfBulletsInRound -= 1;
 
             lastTimeShot = Time.time;
-            //se va genera un glont nou
+            //A new bullet will be generated and fired
             GameObject bullet = Instantiate(projectilePrefab, firingPoint.position, firingPoint.rotation);
             bullet.transform.parent = _parent.transform;
         }

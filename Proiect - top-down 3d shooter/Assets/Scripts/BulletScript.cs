@@ -5,14 +5,14 @@ using UnityEngine;
 public class BulletScript : MonoBehaviour
 {
     [SerializeField]
-    float projectileSpeed;  //viteza cu care se deplaseaza glontul
+    float projectileSpeed;      //bullet speed
 
     void Update()
     {
         MoveProjectile();
     }
 
-    //functie cu care se face deplasarea gloantelor
+    //Bullet firing
     void MoveProjectile()
     {
         transform.Translate(Vector3.forward * projectileSpeed * Time.deltaTime);
@@ -20,7 +20,7 @@ public class BulletScript : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        //glontul o sa dispara in momentul in care atinge un zid sau cade pe mapa
+        //When the bullet hits the wall/the ground, it will disappear
         if (collision.gameObject.CompareTag("Bounds") || collision.gameObject.CompareTag("Ground"))
         {
             gameObject.SetActive(false);

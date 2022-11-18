@@ -8,11 +8,11 @@ public class CameraController : MonoBehaviour
     Transform target;
 
     [SerializeField]
-    Vector3 targetOffset;
+    Vector3 targetOffset;           //distance offset from target to camera
 
     [SerializeField]
     [Range(2f, 5f)]
-    float movementSpeed = 5f;
+    float movementSpeed = 5f;       //camera movement speed
 
     [SerializeField]
     [Range(10f, 30f)]

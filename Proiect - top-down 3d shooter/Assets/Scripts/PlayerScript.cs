@@ -7,32 +7,31 @@ public class PlayerScript : MonoBehaviour
 {
     [SerializeField]
     [Range(0f, 15f)]
-    float movementSpeed = 1f;    //player's movement speed
+    float movementSpeed = 1f;               //player's movement speed
 
     [SerializeField]
     [Range(1f, 10f)]
-    float jumpForce = 1f;        //player's jump force
+    float jumpForce = 1f;                   //player's jump force
 
-    bool isGrounded;             //is player on the ground or not
-    Rigidbody rb;                //player rigidbody
+    bool isGrounded;                        //is player on the ground or not
+    Rigidbody rb;                           //player rigidbody
 
     [SerializeField]
-    LayerMask groundLayer;       //layer to be detected as ground
+    LayerMask groundLayer;                  //layer to be detected as ground
 
     [SerializeField]
     [Range(1f, 2f)]
-    float groundDistance = 1f;   //distance from player body to ground
-<<<<<<< HEAD
+    float groundDistance = 1f;              //distance from player body to ground
 
-    public static int noOfBulletsInRound;
-    int noOfBullets;
-    int maxNoOfBulletsInRound;
-=======
->>>>>>> eea3a4734ed222b3fc71f017321123f6d1d74349
+    public static int noOfBulletsInRound;   //number of bullets in the gun's round
+    int noOfBullets;                        //number of bullets left besides the ones in the gun
+    int maxNoOfBulletsInRound;              //the maximum number of bullets that a round can have
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        //Set the bullet bounds
         noOfBullets = 50;
         noOfBulletsInRound = 10;
         maxNoOfBulletsInRound = 10;
@@ -106,11 +105,12 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    //Player reloads the gun
     async void HandleReloadInput()
     {
         if (Input.GetKey(KeyCode.R) && noOfBullets > 0)
         {
-            await Task.Delay(1500);
+            await Task.Delay(1500);     //add delay of 1.5s to reload task
 
             if (noOfBullets >= maxNoOfBulletsInRound)
             {
@@ -119,7 +119,7 @@ public class PlayerScript : MonoBehaviour
             }
             else
             {
-                int max_bullets = maxNoOfBulletsInRound - noOfBulletsInRound;
+                int max_bullets = maxNoOfBulletsInRound - noOfBulletsInRound;       //the maximum number of bullets that can be added in the round
                 if (noOfBullets <= max_bullets)
                 {
                     noOfBulletsInRound += noOfBullets;
