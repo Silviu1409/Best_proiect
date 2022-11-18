@@ -22,10 +22,13 @@ public class PlayerScript : MonoBehaviour
     [SerializeField]
     [Range(1f, 2f)]
     float groundDistance = 1f;   //distance from player body to ground
+<<<<<<< HEAD
 
     public static int noOfBulletsInRound;
     int noOfBullets;
     int maxNoOfBulletsInRound;
+=======
+>>>>>>> eea3a4734ed222b3fc71f017321123f6d1d74349
 
     void Start()
     {
