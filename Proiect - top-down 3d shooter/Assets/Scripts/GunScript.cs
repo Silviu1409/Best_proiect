@@ -31,8 +31,10 @@ public class GunScript : MonoBehaviour
     public void Shoot()
     {
         //firing rate-ul minim va fi 1/firingSpeed secunde
-        if (lastTimeShot + 1 / firingSpeed <= Time.time)
+        if (lastTimeShot + 1 / firingSpeed <= Time.time && PlayerScript.noOfBulletsInRound > 0)
         {
+            PlayerScript.noOfBulletsInRound -= 1;
+
             lastTimeShot = Time.time;
             //se va genera un glont nou
             GameObject bullet = Instantiate(projectilePrefab, firingPoint.position, firingPoint.rotation);
