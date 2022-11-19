@@ -25,5 +25,15 @@ public class BulletScript : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
+
+        if (collision.gameObject.CompareTag("Enemy1"))
+        {
+            gameObject.SetActive(false);
+        }
+
+        if (collision.gameObject.CompareTag("Enemy2"))
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
