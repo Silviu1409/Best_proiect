@@ -2,7 +2,7 @@
 
 ## Incarcare recenzii
 
-Listele cu obiectivele indeplinite pentru fiecare sprint sunt incarcate in folderul "Documentatie" sub denumirea "RAPORT FINAL SPRINT X".
+Listele cu obiectivele indeplinite pentru fiecare sprint sunt incarcate sub denumirea "RAPORT FINAL SPRINT X".
 
 Pentru a incarca recenzia dvs va rugam sa folositi urmatorul formular https://forms.gle/9rgXxm93HRBZR4SKA
 
