@@ -20,6 +20,8 @@ Ioan Tudor Alexandru - Game Developer
 
 Ionescu Alexandru - Game Developer
 
+Mitrica Octavian - Game Developer
+
 Roman Andrei Marian - Game Developer
 
 Stan Ana Maria - Game Developer
