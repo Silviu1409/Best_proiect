@@ -63,6 +63,7 @@ public class PlayerScript : MonoBehaviour
         float v = Input.GetAxis("Vertical");
 
         rb.velocity = new Vector3(h * movementSpeed, rb.velocity.y, v * movementSpeed);
+        rb.velocity.Normalize();
     }
 
     //Player jump
