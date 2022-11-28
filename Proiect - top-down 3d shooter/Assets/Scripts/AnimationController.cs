@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class AnimationController : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class AnimationController : MonoBehaviour
         HandleAnimationInput();
     }
 
-    void HandleAnimationInput()
+    async void HandleAnimationInput()
     {
         if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d") || Input.GetKey("up") || Input.GetKey("down") || Input.GetKey("left") || Input.GetKey("right"))
         {
@@ -31,34 +32,30 @@ public class AnimationController : MonoBehaviour
             animator.SetBool("isRunning", false);
         }
 
-        if (Input.GetMouseButton(0) && PlayerScript.noOfBulletsInRound > 0)
+        if (Input.GetMouseButton(0) && PlayerScript.noOfBulletsInRound > 0 && animator.GetBool("isReloading") == false && animator.GetBool("isJumping") == false)
         {
             animator.SetBool("isShooting", true);
-            gun.SetActive(true);
         }
         else
         {
             animator.SetBool("isShooting", false);
-            gun.SetActive(false);
         }
 
-        if (Input.GetKey("space"))
+        if (Input.GetKey("space") && animator.GetBool("isReloading") == false && animator.GetBool("isShooting") == false)
         {
             animator.SetBool("isJumping", true);
-        }
-        else
-        {
+            await Task.Delay(1000);
             animator.SetBool("isJumping", false);
         }
+        
 
 
-        if (Input.GetKey("r"))
+        if (Input.GetKey("r") && animator.GetBool("isShooting") == false && animator.GetBool("isJumping") == false)
         {
             animator.SetBool("isReloading", true);
-        }
-        else
-        {
+            await Task.Delay(1600);
             animator.SetBool("isReloading", false);
         }
+        
     }
 }

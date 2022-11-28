@@ -27,10 +27,16 @@ public class PlayerScript : MonoBehaviour
     int noOfBullets;                        //number of bullets left besides the ones in the gun
     int maxNoOfBulletsInRound;              //the maximum number of bullets that a round can have
 
+    [SerializeField]
+    GameObject gun;
+
+    [SerializeField]
+    Animator animator;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-
+        
         //Set the bullet bounds
         noOfBullets = 50;
         noOfBulletsInRound = 10;
@@ -69,8 +75,9 @@ public class PlayerScript : MonoBehaviour
     //Player jump
     void HandleJump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && animator.GetBool("isShooting") == false && animator.GetBool("isReloading") == false)
         {
+            Debug.Log(animator.GetBool("isReloading"));
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
         }
@@ -89,9 +96,13 @@ public class PlayerScript : MonoBehaviour
     //Player shoots with gun using left click
     void HandleShootInput()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && animator.GetBool("isReloading") == false && animator.GetBool("isJumping") == false)
         {
-            GunScript.Instance.Shoot();
+            
+            if (gun.transform.position.y >= 2.36)
+            { 
+                GunScript.Instance.Shoot(); 
+            }
         }
     }
 
@@ -109,7 +120,7 @@ public class PlayerScript : MonoBehaviour
     //Player reloads the gun
     async void HandleReloadInput()
     {
-        if (Input.GetKey(KeyCode.R) && noOfBullets > 0)
+        if (Input.GetKey(KeyCode.R) && noOfBullets > 0 && animator.GetBool("isShooting") == false && animator.GetBool("isJumping") == false)
         {
             await Task.Delay(1500);     //add delay of 1.5s to reload task
 
