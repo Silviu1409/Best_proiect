@@ -29,10 +29,50 @@ public class AnimationController : MonoBehaviour
             if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d") || Input.GetKey("up") || Input.GetKey("down") || Input.GetKey("left") || Input.GetKey("right"))
             {
                 animator.SetBool("isRunning", true);
+                
+                if (Input.GetKey("w") || Input.GetKey("up")) 
+                {
+                    animator.SetBool("runningF", true);
+                } 
+                else
+                {
+                    animator.SetBool("runningF", false);
+                }
+
+                if (Input.GetKey("a") || Input.GetKey("left"))
+                {
+                    animator.SetBool("runningL", true);
+                }
+                else
+                {
+                    animator.SetBool("runningL", false);
+                }
+
+                if (Input.GetKey("s") || Input.GetKey("down"))
+                {
+                    animator.SetBool("runningB", true);
+                }
+                else
+                {
+                    animator.SetBool("runningB", false);
+                }
+
+                if (Input.GetKey("d") || Input.GetKey("right"))
+                {
+                    animator.SetBool("runningR", true);
+                }
+                else
+                {
+                    animator.SetBool("runningR", false);
+                }
             }
             else
             {
                 animator.SetBool("isRunning", false);
+                /*animator.SetBool("runningF", false);
+                animator.SetBool("runningL", false);
+                animator.SetBool("runningB", false);
+                animator.SetBool("runningR", false);*/
             }
         }
 
