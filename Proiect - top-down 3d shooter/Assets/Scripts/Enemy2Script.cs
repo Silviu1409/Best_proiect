@@ -31,6 +31,6 @@ public class Enemy2Script : MonoBehaviour
     
     void RotateEnemy()
     {
-        transform.LookAt(target.transform);         // rotate enemy to face the target
+        transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));         // rotate enemy to face the target
     }
 }
