@@ -20,18 +20,18 @@ public class PlayerScript : MonoBehaviour
     LayerMask groundLayer;                  //layer to be detected as ground
 
     [SerializeField]
-    [Range(1f, 2f)]
-    float groundDistance = 1f;              //distance from player body to ground
+    [Range(0f, 0.5f)]
+    float groundDistance = 0.1f;              //distance from player body to ground
 
     public static int noOfBulletsInRound;   //number of bullets in the gun's round
     int noOfBullets;                        //number of bullets left besides the ones in the gun
     int maxNoOfBulletsInRound;              //the maximum number of bullets that a round can have
 
     [SerializeField]
-    GameObject gun;
+    GameObject gun;                         //player's gun
 
     [SerializeField]
-    Animator animator;
+    Animator animator;                      //player's animator
 
     void Start()
     {
