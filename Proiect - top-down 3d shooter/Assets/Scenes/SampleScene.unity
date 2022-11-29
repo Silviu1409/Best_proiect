@@ -252,6 +252,10 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 9e1731dd636f6874eb5a9435655f8273, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: cea17f1c76459ab479f3c64016ea868a, type: 3}
+    - target: {fileID: 5866666021909216657, guid: 9e1731dd636f6874eb5a9435655f8273, type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
@@ -340,7 +344,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 124de5f3f89a7494eaae5610359535ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
+  animator: {fileID: 51460080}
   gun: {fileID: 2102869327}
 --- !u!95 &51460080 stripped
 Animator:

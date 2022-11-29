@@ -13,7 +13,7 @@ public class PlayerScript : MonoBehaviour
     [Range(1f, 10f)]
     float jumpForce = 1f;                   //player's jump force
 
-    bool isGrounded;                        //is player on the ground or not
+    static bool isGrounded;                 //is player on the ground or not
     Rigidbody rb;                           //player rigidbody
 
     [SerializeField]
@@ -21,7 +21,7 @@ public class PlayerScript : MonoBehaviour
 
     [SerializeField]
     [Range(0f, 0.5f)]
-    float groundDistance = 0.1f;              //distance from player body to ground
+    float groundDistance = 0.01f;           //distance from player body to ground
 
     public static int noOfBulletsInRound;   //number of bullets in the gun's round
     int noOfBullets;                        //number of bullets left besides the ones in the gun
@@ -33,6 +33,8 @@ public class PlayerScript : MonoBehaviour
     [SerializeField]
     Animator animator;                      //player's animator
 
+    int reloadTime;                         //how much it takes(in ms) to reload the gun
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -41,6 +43,7 @@ public class PlayerScript : MonoBehaviour
         noOfBullets = 50;
         noOfBulletsInRound = 10;
         maxNoOfBulletsInRound = 10;
+        reloadTime = 850;
     }
 
     void Update()
@@ -68,8 +71,11 @@ public class PlayerScript : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
-        rb.velocity = new Vector3(h * movementSpeed, rb.velocity.y, v * movementSpeed);
-        rb.velocity.Normalize();
+        if (animator.GetBool("isReloading") == false && animator.GetBool("isShooting") == false)
+        {
+            rb.velocity = new Vector3(h * movementSpeed, rb.velocity.y, v * movementSpeed);
+            rb.velocity.Normalize();
+        }
     }
 
     //Player jump
@@ -77,7 +83,6 @@ public class PlayerScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded && animator.GetBool("isShooting") == false && animator.GetBool("isReloading") == false)
         {
-            Debug.Log(animator.GetBool("isReloading"));
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
         }
@@ -96,7 +101,7 @@ public class PlayerScript : MonoBehaviour
     //Player shoots with gun using left click
     void HandleShootInput()
     {
-        if (Input.GetMouseButton(0) && animator.GetBool("isReloading") == false && animator.GetBool("isJumping") == false)
+        if (Input.GetMouseButton(0) && animator.GetBool("isReloading") == false && isGrounded && animator.GetBool("isRunning") == false)
         {
             
             if (gun.transform.position.y >= 2.36)
@@ -120,9 +125,11 @@ public class PlayerScript : MonoBehaviour
     //Player reloads the gun
     async void HandleReloadInput()
     {
-        if (Input.GetKey(KeyCode.R) && noOfBullets > 0 && animator.GetBool("isShooting") == false && animator.GetBool("isJumping") == false)
+        if (Input.GetKey(KeyCode.R) && noOfBullets > 0 && isGrounded && animator.GetBool("isReloading") == false && animator.GetBool("isShooting") == false && isGrounded && animator.GetBool("isRunning") == false)
         {
-            await Task.Delay(1500);     //add delay of 1.5s to reload task
+            animator.SetBool("isReloading", true);      //now the animator knows that the player is reloading the gun
+            
+            await Task.Delay((int)(reloadTime * 1/Time.timeScale));     //add delay of 1.5s to reload task
 
             if (noOfBullets >= maxNoOfBulletsInRound)
             {
@@ -143,6 +150,14 @@ public class PlayerScript : MonoBehaviour
                     noOfBullets -= max_bullets;
                 }
             }
+
+            animator.SetBool("isReloading", false);     //now the animator knows that the player is not reloading the gun
         }
+    }
+
+    //Check from other Scripts if Player is grounded
+    public static bool getGrounded()
+    {
+        return isGrounded;
     }
 }

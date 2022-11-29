@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 public class AnimationController : MonoBehaviour
 {
     [SerializeField]
-    Animator animator;
+    Animator animator;              //player's animator
 
     [SerializeField]
-    GameObject gun;
+    GameObject gun;                 //player's gun
 
     void Start()
     {
@@ -21,18 +21,23 @@ public class AnimationController : MonoBehaviour
         HandleAnimationInput();
     }
 
-    async void HandleAnimationInput()
+    void HandleAnimationInput()
     {
-        if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d") || Input.GetKey("up") || Input.GetKey("down") || Input.GetKey("left") || Input.GetKey("right"))
+        // The player can't move while it's shooting/reloading
+        if (animator.GetBool("isReloading") == false && animator.GetBool("isShooting") == false)
         {
-            animator.SetBool("isRunning", true);
-        }
-        else
-        {
-            animator.SetBool("isRunning", false);
+            if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d") || Input.GetKey("up") || Input.GetKey("down") || Input.GetKey("left") || Input.GetKey("right"))
+            {
+                animator.SetBool("isRunning", true);
+            }
+            else
+            {
+                animator.SetBool("isRunning", false);
+            }
         }
 
-        if (Input.GetMouseButton(0) && PlayerScript.noOfBulletsInRound > 0 && animator.GetBool("isReloading") == false && animator.GetBool("isJumping") == false)
+        // The player can't shoot with no bullets left in round and while it's reloading/jumping or running
+        if (Input.GetMouseButton(0) && PlayerScript.noOfBulletsInRound > 0 && animator.GetBool("isReloading") == false && animator.GetBool("isJumping") == false && animator.GetBool("isRunning") == false)
         {
             animator.SetBool("isShooting", true);
         }
@@ -41,21 +46,8 @@ public class AnimationController : MonoBehaviour
             animator.SetBool("isShooting", false);
         }
 
-        if (Input.GetKey("space") && animator.GetBool("isReloading") == false && animator.GetBool("isShooting") == false)
-        {
-            animator.SetBool("isJumping", true);
-            await Task.Delay(1000);
-            animator.SetBool("isJumping", false);
-        }
-        
-
-
-        if (Input.GetKey("r") && animator.GetBool("isShooting") == false && animator.GetBool("isJumping") == false)
-        {
-            animator.SetBool("isReloading", true);
-            await Task.Delay(1600);
-            animator.SetBool("isReloading", false);
-        }
+        // The player is jumping when the ground check says that the player is not on the ground
+        animator.SetBool("isJumping", !PlayerScript.getGrounded());
         
     }
 }
