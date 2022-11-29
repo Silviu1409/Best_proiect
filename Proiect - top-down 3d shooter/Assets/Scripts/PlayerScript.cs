@@ -116,9 +116,13 @@ public class PlayerScript : MonoBehaviour
     {
         RaycastHit _hit;
         Ray _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(_ray, out _hit))
+        
+        int layerMask = 1 << LayerMask.NameToLayer("Ground");
+
+        if (Physics.Raycast(_ray, out _hit, 50f, layerMask))
         {
-            transform.LookAt(new Vector3(_hit.point.x, transform.position.y, _hit.point.z));
+            //Added offset for raycast
+            transform.LookAt(new Vector3(_hit.point.x, transform.position.y, _hit.point.z - gameObject.GetComponent<CapsuleCollider>().center.y));
         }
     }
 
