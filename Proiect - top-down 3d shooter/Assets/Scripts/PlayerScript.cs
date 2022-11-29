@@ -52,7 +52,7 @@ public class PlayerScript : MonoBehaviour
 
         //Ground Check
         isGrounded = Physics.CheckSphere(transform.position, groundDistance, groundLayer);
-
+        
         HandleJump();
         HandleShootInput();
         HandleReloadInput();
