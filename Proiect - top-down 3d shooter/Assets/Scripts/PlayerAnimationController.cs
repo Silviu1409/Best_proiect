@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
 
-public class AnimationController : MonoBehaviour
+public class PlayerAnimationController : MonoBehaviour
 {
     [SerializeField]
     Animator animator;              //player's animator
@@ -26,10 +26,12 @@ public class AnimationController : MonoBehaviour
         // The player can't move while it's shooting/reloading
         if (animator.GetBool("isReloading") == false && animator.GetBool("isShooting") == false)
         {
+            // Condition for player moving
             if (Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d") || Input.GetKey("up") || Input.GetKey("down") || Input.GetKey("left") || Input.GetKey("right"))
             {
                 animator.SetBool("isRunning", true);
-                
+
+                // Condition for player moving forward
                 if (Input.GetKey("w") || Input.GetKey("up")) 
                 {
                     animator.SetBool("runningF", true);
@@ -39,6 +41,7 @@ public class AnimationController : MonoBehaviour
                     animator.SetBool("runningF", false);
                 }
 
+                // Condition for player moving left
                 if (Input.GetKey("a") || Input.GetKey("left"))
                 {
                     animator.SetBool("runningL", true);
@@ -48,6 +51,7 @@ public class AnimationController : MonoBehaviour
                     animator.SetBool("runningL", false);
                 }
 
+                // Condition for player moving backwards
                 if (Input.GetKey("s") || Input.GetKey("down"))
                 {
                     animator.SetBool("runningB", true);
@@ -57,6 +61,7 @@ public class AnimationController : MonoBehaviour
                     animator.SetBool("runningB", false);
                 }
 
+                // Condition for player moving right
                 if (Input.GetKey("d") || Input.GetKey("right"))
                 {
                     animator.SetBool("runningR", true);
@@ -69,10 +74,6 @@ public class AnimationController : MonoBehaviour
             else
             {
                 animator.SetBool("isRunning", false);
-                /*animator.SetBool("runningF", false);
-                animator.SetBool("runningL", false);
-                animator.SetBool("runningB", false);
-                animator.SetBool("runningR", false);*/
             }
         }
 

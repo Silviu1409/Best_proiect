@@ -117,8 +117,9 @@ public class PlayerScript : MonoBehaviour
         RaycastHit _hit;
         Ray _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         
-        int layerMask = 1 << LayerMask.NameToLayer("Ground");
+        int layerMask = 1 << LayerMask.NameToLayer("Ground");   //layermask for the ground
 
+        // Apply raycast with a distance of 50, using the ground layermask
         if (Physics.Raycast(_ray, out _hit, 50f, layerMask))
         {
             //Added offset for raycast
