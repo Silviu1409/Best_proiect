@@ -10,8 +10,6 @@ public class PlayerScript : MonoBehaviour
     [Range(0f, 15f)]
     float movementSpeed = 1f;               //player's movement speed
 
-    int testare_commit=10; //variabila pusa pentru testare commit pe branch Enemies_copy
-
     [SerializeField]
     [Range(1f, 10f)]
     float jumpForce = 1f;                   //player's jump force
