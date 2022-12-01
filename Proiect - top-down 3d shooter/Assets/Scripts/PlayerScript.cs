@@ -13,28 +13,37 @@ public class PlayerScript : MonoBehaviour
     [Range(1f, 10f)]
     float jumpForce = 1f;                   //player's jump force
 
-    bool isGrounded;                        //is player on the ground or not
+    static bool isGrounded;                 //is player on the ground or not
     Rigidbody rb;                           //player rigidbody
 
     [SerializeField]
     LayerMask groundLayer;                  //layer to be detected as ground
 
     [SerializeField]
-    [Range(1f, 2f)]
-    float groundDistance = 1f;              //distance from player body to ground
+    [Range(0f, 0.5f)]
+    float groundDistance = 0.01f;           //distance from player body to ground
 
     public static int noOfBulletsInRound;   //number of bullets in the gun's round
     int noOfBullets;                        //number of bullets left besides the ones in the gun
     int maxNoOfBulletsInRound;              //the maximum number of bullets that a round can have
 
+    [SerializeField]
+    GameObject gun;                         //player's gun
+
+    [SerializeField]
+    Animator animator;                      //player's animator
+
+    int reloadTime;                         //how much it takes(in ms) to reload the gun
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-
+        
         //Set the bullet bounds
         noOfBullets = 50;
         noOfBulletsInRound = 10;
         maxNoOfBulletsInRound = 10;
+        reloadTime = 850;
     }
 
     void Update()
@@ -43,7 +52,7 @@ public class PlayerScript : MonoBehaviour
 
         //Ground Check
         isGrounded = Physics.CheckSphere(transform.position, groundDistance, groundLayer);
-
+        
         HandleJump();
         HandleShootInput();
         HandleReloadInput();
@@ -62,13 +71,17 @@ public class PlayerScript : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         float v = Input.GetAxis("Vertical");
 
-        rb.velocity = new Vector3(h * movementSpeed, rb.velocity.y, v * movementSpeed);
+        if (animator.GetBool("isReloading") == false && animator.GetBool("isShooting") == false)
+        {
+            rb.velocity = new Vector3(h * movementSpeed, rb.velocity.y, v * movementSpeed);
+            rb.velocity.Normalize();
+        }
     }
 
     //Player jump
     void HandleJump()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && animator.GetBool("isShooting") == false && animator.GetBool("isReloading") == false)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
@@ -88,9 +101,13 @@ public class PlayerScript : MonoBehaviour
     //Player shoots with gun using left click
     void HandleShootInput()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(0) && animator.GetBool("isReloading") == false && isGrounded && animator.GetBool("isRunning") == false)
         {
-            GunScript.Instance.Shoot();
+            
+            if (gun.transform.position.y >= 2.36)
+            { 
+                GunScript.Instance.Shoot(); 
+            }
         }
     }
 
@@ -99,18 +116,25 @@ public class PlayerScript : MonoBehaviour
     {
         RaycastHit _hit;
         Ray _ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(_ray, out _hit))
+        
+        int layerMask = 1 << LayerMask.NameToLayer("Ground");   //layermask for the ground
+
+        // Apply raycast with a distance of 50, using the ground layermask
+        if (Physics.Raycast(_ray, out _hit, 50f, layerMask))
         {
-            transform.LookAt(new Vector3(_hit.point.x, transform.position.y, _hit.point.z));
+            //Added offset for raycast
+            transform.LookAt(new Vector3(_hit.point.x, transform.position.y, _hit.point.z - gameObject.GetComponent<CapsuleCollider>().center.y));
         }
     }
 
     //Player reloads the gun
     async void HandleReloadInput()
     {
-        if (Input.GetKey(KeyCode.R) && noOfBullets > 0)
+        if (Input.GetKey(KeyCode.R) && noOfBullets > 0 && isGrounded && animator.GetBool("isReloading") == false && animator.GetBool("isShooting") == false && isGrounded && animator.GetBool("isRunning") == false)
         {
-            await Task.Delay(1500);     //add delay of 1.5s to reload task
+            animator.SetBool("isReloading", true);      //now the animator knows that the player is reloading the gun
+            
+            await Task.Delay((int)(reloadTime * 1/Time.timeScale));     //add delay of 1.5s to reload task
 
             if (noOfBullets >= maxNoOfBulletsInRound)
             {
@@ -131,6 +155,14 @@ public class PlayerScript : MonoBehaviour
                     noOfBullets -= max_bullets;
                 }
             }
+
+            animator.SetBool("isReloading", false);     //now the animator knows that the player is not reloading the gun
         }
+    }
+
+    //Check from other Scripts if Player is grounded
+    public static bool getGrounded()
+    {
+        return isGrounded;
     }
 }
