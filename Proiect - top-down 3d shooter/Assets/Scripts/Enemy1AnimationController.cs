@@ -21,6 +21,7 @@ public class Enemy1AnimationController : MonoBehaviour
     void HandleAnimationInput()
     {
         animator.SetBool("isClose", Enemy1Script.isClose());
+        
 
         if (animator.GetBool("isClose") == false)
         {

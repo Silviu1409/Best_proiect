@@ -10,7 +10,7 @@ public class Enemy1Script : MonoBehaviour
     [SerializeField]
     float movementSpeed = 2f;               // enemy movement speed
 
-    static float distanceToPlayer;          // distance between enemy and target
+    static float distanceToPlayer=10.0f;          // distance between enemy and target
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +23,7 @@ public class Enemy1Script : MonoBehaviour
     {
         MoveEnemy();
         distanceToPlayer = Vector3.Distance(transform.position, target.position);
-        Debug.Log(isClose());
+        // Debug.Log(distanceToPlayer);
     }
 
     void MoveEnemy()
@@ -39,7 +39,7 @@ public class Enemy1Script : MonoBehaviour
 
     public static bool isClose()
     {
-        if (distanceToPlayer < 3.0f)
+        if (distanceToPlayer < 5.0f)
             return true;
         else
             return false;
