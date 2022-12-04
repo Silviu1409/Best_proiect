@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,7 @@ public class EnemyScript : MonoBehaviour
     public int maxHealth = 100;
     public int currentHealth;
     public HealthBar healthBar;
+
 
     void Start()
     {
@@ -22,6 +24,16 @@ public class EnemyScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             TakeDamage(20);
+        }
+
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        //daca se atinge playerul de inamic ia damage - pt test
+        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "PlayerGun")
+        {
+            TakeDamage(40);
         }
     }
 

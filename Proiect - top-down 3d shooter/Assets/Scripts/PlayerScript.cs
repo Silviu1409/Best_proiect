@@ -27,6 +27,15 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    void OnCollisionEnter(Collision collision)
+    {
+        //daca se atinge playerul de inamic ia damage - pt test
+        if (collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "EnemyGun")
+        {
+            TakeDamage(40);
+        }
+    }
+
     void HandleMovementInput()
     {
         float h = Input.GetAxis("Horizontal");
