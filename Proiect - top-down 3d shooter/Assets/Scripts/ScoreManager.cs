@@ -16,9 +16,12 @@ public class ScoreManager : MonoBehaviour
     void Start()
     {
         highscore = PlayerPrefs.GetInt("highscore", 0);
-        scoreText.text = score.ToString() + " POINTS";
+        //scoreText.text = score.ToString() + " POINTS";
+        scoreText.text = score.ToString();
         highscoreText.text = "HIGHSCORE: " + highscore.ToString();
-        ammoText.text= "AMMO: \u221E";
+        //ammoText.text= "AMMO: \u221E";
+        ammoText.text = "\u221E";
+
     }
 
     void Update()
@@ -36,8 +39,9 @@ public class ScoreManager : MonoBehaviour
     {
          
         score += 1;
-        scoreText.text = score.ToString() + " POINTS";
-        if(score>highscore)
+        scoreText.text = score.ToString();
+        //scoreText.text = score.ToString() + " POINTS";
+        if (score>highscore)
             PlayerPrefs.SetInt("highscore",score);
     }
 }

@@ -362,6 +362,8 @@
 "Assets/Scripts/CameraController.cs"
 "Assets/Scripts/EnemyScript.cs"
 "Assets/Scripts/HealthBar.cs"
+"Assets/Scripts/PauseControl.cs"
+"Assets/Scripts/PauseMenu.cs"
 "Assets/Scripts/PlayerScript.cs"
 "Assets/Scripts/ScoreManager.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01.cs"
