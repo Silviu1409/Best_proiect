@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 
 
@@ -36,6 +37,14 @@ public class PlayerScript : MonoBehaviour
 
     int reloadTime;                         //how much it takes(in ms) to reload the gun
 
+    public int maxHealth = 100;
+    public int currentHealth;
+    public HealthBar healthBar;
+
+    //public TextMeshProUGUI ammoInGunText;
+    //public TextMeshProUGUI ammoLeftText;
+    public TextMeshProUGUI ammoText;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -45,6 +54,13 @@ public class PlayerScript : MonoBehaviour
         noOfBulletsInRound = 10;
         maxNoOfBulletsInRound = 10;
         reloadTime = 850;
+
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
+
+        //ammoInGunText.text = noOfBullets.ToString();
+        //ammoLeftText.text = noOfBulletsInRound.ToString();
+        ammoText.text = noOfBulletsInRound.ToString() + "/" + noOfBullets.ToString();
     }
 
     void Update()
@@ -57,6 +73,10 @@ public class PlayerScript : MonoBehaviour
         HandleJump();
         HandleShootInput();
         HandleReloadInput();
+
+        //ammoInGunText.text = noOfBullets.ToString();
+        //ammoLeftText.text = noOfBulletsInRound.ToString();
+        ammoText.text = noOfBulletsInRound.ToString() + "/" + noOfBullets.ToString();
 
     }
 
@@ -166,4 +186,20 @@ public class PlayerScript : MonoBehaviour
     {
         return isGrounded;
     }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        //daca se atinge playerul de inamic ia damage - pt test
+        if (collision.gameObject.tag == "Enemy1" || collision.gameObject.tag == "Enemy2" || collision.gameObject.tag == "EnemyBullet")
+        {
+            TakeDamage(30);
+        }
+    }
+
+    void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        healthBar.SetHealth(currentHealth);
+    }
+
 }

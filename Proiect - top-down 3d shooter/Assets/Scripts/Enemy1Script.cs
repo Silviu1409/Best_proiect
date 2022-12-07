@@ -12,10 +12,16 @@ public class Enemy1Script : MonoBehaviour
 
     static float distanceToPlayer=10.0f;          // distance between enemy and target
 
+    public int maxHealth = 100;
+    public int currentHealth;
+    public HealthBar healthBar;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     // Update is called once per frame
@@ -23,6 +29,7 @@ public class Enemy1Script : MonoBehaviour
     {
         MoveEnemy();
         distanceToPlayer = Vector3.Distance(transform.position, target.position);
+        
         // Debug.Log(distanceToPlayer);
     }
 
@@ -43,6 +50,21 @@ public class Enemy1Script : MonoBehaviour
             return true;
         else
             return false;
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        //daca se atinge playerul de inamic ia damage - pt test
+        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "PlayerBullet")
+        {
+            TakeDamage(40);
+        }
+    }
+
+    void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        healthBar.SetHealth(currentHealth);
     }
 
 }

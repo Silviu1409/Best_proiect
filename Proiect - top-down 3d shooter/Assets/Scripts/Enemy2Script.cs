@@ -15,10 +15,16 @@ public class Enemy2Script : MonoBehaviour
     [SerializeField]
     Animator animator;
 
+    public int maxHealth = 100;
+    public int currentHealth;
+    public HealthBar healthBar;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
+
     }
 
     // Update is called once per frame
@@ -56,5 +62,20 @@ public class Enemy2Script : MonoBehaviour
             return true;
         else
             return false;
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        //daca se atinge playerul de inamic ia damage - pt test
+        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "PlayerBullet")
+        {
+            TakeDamage(40);
+        }
+    }
+
+    void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        healthBar.SetHealth(currentHealth);
     }
 }
