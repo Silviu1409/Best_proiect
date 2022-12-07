@@ -1364,8 +1364,6 @@ namespace UnityEngine.UI
                         return TouchScreenKeyboard.isSupported;
 
                     return !TouchScreenKeyboard.isInPlaceEditingAllowed;
-                case RuntimePlatform.WebGLPlayer:
-                    return !TouchScreenKeyboard.isInPlaceEditingAllowed;
                 default:
                     return TouchScreenKeyboard.isSupported;
             }
@@ -2513,11 +2511,6 @@ namespace UnityEngine.UI
                     m_DrawEnd = m_Text.Length;
                 }
 
-                // To fix case 1320719; we need to rebuild the layout before we check the number of characters that can fit within the extents.
-                // Otherwise, the extents provided may not be good.
-                textComponent.SetLayoutDirty();
-                Canvas.ForceUpdateCanvases();
-
                 if (!isEmpty)
                 {
                     // Determine what will actually fit into the given line
@@ -3401,7 +3394,7 @@ namespace UnityEngine.UI
         /// <summary>
         /// See ILayoutElement.minWidth.
         /// </summary>
-        public virtual float minWidth { get { return 5; } }
+        public virtual float minWidth { get { return 0; } }
 
         /// <summary>
         /// Get the displayed with of all input characters.

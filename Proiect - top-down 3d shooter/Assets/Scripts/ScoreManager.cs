@@ -8,7 +8,8 @@ public class ScoreManager : MonoBehaviour
 
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI highscoreText;
-    public TextMeshProUGUI ammoText;
+    public TextMeshProUGUI ammoInGunText;
+    public TextMeshProUGUI ammoLeftText;
     private int score = 0;
     private int highscore = 0;
     //private int ammo = 0;
@@ -20,8 +21,8 @@ public class ScoreManager : MonoBehaviour
         scoreText.text = score.ToString();
         highscoreText.text = "HIGHSCORE: " + highscore.ToString();
         //ammoText.text= "AMMO: \u221E";
-        ammoText.text = "\u221E";
-
+        ammoInGunText.text = "0";
+        ammoLeftText.text = "\u221E";
     }
 
     void Update()

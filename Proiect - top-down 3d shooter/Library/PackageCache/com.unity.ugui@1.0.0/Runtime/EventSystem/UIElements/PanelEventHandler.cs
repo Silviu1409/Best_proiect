@@ -2,8 +2,6 @@ using UnityEngine.EventSystems;
 
 namespace UnityEngine.UIElements
 {
-    // This code is disabled unless the UI Toolkit package or the com.unity.modules.uielements module are present.
-    // The UIElements module is always present in the Editor but it can be stripped from a project build if unused.
 #if PACKAGE_UITOOLKIT
     /// <summary>
     /// Use this class to handle input and send events to UI Toolkit runtime panels.
@@ -291,11 +289,21 @@ namespace UnityEngine.UIElements
         {
             if (e.type == EventType.KeyUp)
             {
-                SendKeyUpEvent(e);
+                if (e.character == '\0')
+                {
+                    SendKeyUpEvent(e, e.keyCode, e.modifiers);
+                }
             }
             else if (e.type == EventType.KeyDown)
             {
-                SendKeyDownEvent(e);
+                if (e.character == '\0')
+                {
+                    SendKeyDownEvent(e, e.keyCode, e.modifiers);
+                }
+                else
+                {
+                    SendTextEvent(e, e.character, e.modifiers);
+                }
             }
         }
 
@@ -316,17 +324,25 @@ namespace UnityEngine.UIElements
             }
         }
 
-        private void SendKeyUpEvent(Event e)
+        private void SendKeyUpEvent(Event e, KeyCode keyCode, EventModifiers modifiers)
         {
-            using (var ev = KeyUpEvent.GetPooled('\0', e.keyCode, e.modifiers))
+            using (var ev = KeyUpEvent.GetPooled('\0', keyCode, modifiers))
             {
                 SendEvent(ev, e);
             }
         }
 
-        private void SendKeyDownEvent(Event e)
+        private void SendKeyDownEvent(Event e, KeyCode keyCode, EventModifiers modifiers)
         {
-            using (var ev = KeyDownEvent.GetPooled(e.character, e.keyCode, e.modifiers))
+            using (var ev = KeyDownEvent.GetPooled('\0', keyCode, modifiers))
+            {
+                SendEvent(ev, e);
+            }
+        }
+
+        private void SendTextEvent(Event e, char c, EventModifiers modifiers)
+        {
+            using (var ev = KeyDownEvent.GetPooled(c, KeyCode.None, modifiers))
             {
                 SendEvent(ev, e);
             }
@@ -369,8 +385,6 @@ namespace UnityEngine.UIElements
             public float altitudeAngle { get; private set; }
             public float azimuthAngle { get; private set; }
             public float twist { get; private set; }
-            public Vector2 tilt { get; private set; }
-            public PenStatus penStatus { get; private set; }
             public Vector2 radius { get; private set; }
             public Vector2 radiusVariance { get; private set; }
             public EventModifiers modifiers { get; private set; }
@@ -433,8 +447,6 @@ namespace UnityEngine.UIElements
                 altitudeAngle = eventData.altitudeAngle;
                 azimuthAngle = eventData.azimuthAngle;
                 twist = eventData.twist;
-                tilt = eventData.tilt;
-                penStatus = eventData.penStatus;
                 radius = eventData.radius;
                 radiusVariance = eventData.radiusVariance;
 
