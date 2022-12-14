@@ -15,12 +15,12 @@ public class CameraController : MonoBehaviour
     float movementSpeed = 5f;       //camera movement speed
 
     [SerializeField]
-    [Range(10f, 30f)]
-    float minFOV = 25f;             //max zoom in
+    [Range(25f, 35f)]
+    float minFOV = 30f;             //max zoom in
 
     [SerializeField]
-    [Range(70f, 90f)]
-    float maxFOV = 75f;             //max zoom out
+    [Range(55f, 65f)]
+    float maxFOV = 60f;             //max zoom out
 
     [SerializeField]
     float zoomSensitivity = 10f;    //scroll sensitivity for zooming
@@ -31,17 +31,17 @@ public class CameraController : MonoBehaviour
         HandleZoomInOut();
     }
 
-    //Camera movement
+    // Camera movement
     void MoveCamera()
     {
         transform.position = Vector3.Lerp(transform.position, target.position + targetOffset, movementSpeed * Time.deltaTime);
     }
 
-    //Zoom in and out
+    // Zoom in and out
     void HandleZoomInOut()
     {
         float fov = Camera.main.fieldOfView;
-        fov += Input.GetAxis("Mouse ScrollWheel") * zoomSensitivity;
+        fov += Input.GetAxis("Mouse ScrollWheel") * -1 * zoomSensitivity;   //Mouse scrollwheel is inverted, so we have to multiply it with -1
         fov = Mathf.Clamp(fov, minFOV, maxFOV);
         Camera.main.fieldOfView = fov;
     }
