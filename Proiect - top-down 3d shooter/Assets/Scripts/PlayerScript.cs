@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -61,6 +62,9 @@ public class PlayerScript : MonoBehaviour
         //ammoInGunText.text = noOfBullets.ToString();
         //ammoLeftText.text = noOfBulletsInRound.ToString();
         ammoText.text = noOfBulletsInRound.ToString() + "/" + noOfBullets.ToString();
+        
+
+
     }
 
     void Update()
@@ -77,6 +81,7 @@ public class PlayerScript : MonoBehaviour
         //ammoInGunText.text = noOfBullets.ToString();
         //ammoLeftText.text = noOfBulletsInRound.ToString();
         ammoText.text = noOfBulletsInRound.ToString() + "/" + noOfBullets.ToString();
+
 
     }
 
