@@ -1,7 +1,7 @@
 # ANUNT PENTRU RECENZIA DE LA SPRINT 4
 
 ```diff
-- Vom incarca raportul cu obiective indeplinite pentru sprintul 4 dupa 1 ianuarie.
+- Vom incarca raportul cu obiective indeplinite pentru sprintul 4 dupa 3 ianuarie.
 - Va multumim pentru intelegere, sarbatori fericite si numai note peste 5 in sesiune!
 ```
 
