@@ -31,10 +31,17 @@ public class Enemy2Script : MonoBehaviour
     void Update()
     {
         distanceToPlayer = Vector3.Distance(transform.position, target.position);
-        MoveEnemy();
-        if (distanceToPlayer < 10.0f)
-        {
+        // if (distanceToPlayer < 10.0f)
+        // {
             EnemyGunScript.Instance.Shoot();                // bug la shooting
+        // }
+        MoveEnemy();
+
+
+        // daca inamicul a murit, ii oprim miscarea (ca sa nu mai vina spre player in timpul animatiei de moarte)
+        if (currentHealth <= 0) 
+        {
+            movementSpeed = 0.0f;
         }
     }
 
@@ -64,12 +71,19 @@ public class Enemy2Script : MonoBehaviour
             return false;
     }
 
+    public bool isDead() 
+    {
+        if (currentHealth <= 0)
+            return true;
+        else
+            return false;
+    }
+
     void OnCollisionEnter(Collision collision)
     {
-        //daca se atinge playerul de inamic ia damage - pt test
-        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "PlayerBullet")
+        if (collision.gameObject.tag == "PlayerBullet")
         {
-            TakeDamage(40);
+            TakeDamage(20);
         }
     }
 

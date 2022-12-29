@@ -30,7 +30,11 @@ public class Enemy1Script : MonoBehaviour
         MoveEnemy();
         distanceToPlayer = Vector3.Distance(transform.position, target.position);
         
-        // Debug.Log(distanceToPlayer);
+        // daca inamicul a murit, ii oprim miscarea (ca sa nu mai vina spre player in timpul animatiei de moarte)
+        if (currentHealth <= 0) 
+        {
+            movementSpeed = 0.0f;
+        }
     }
 
     void MoveEnemy()
@@ -52,10 +56,17 @@ public class Enemy1Script : MonoBehaviour
             return false;
     }
 
+    public bool isDead() 
+    {
+        if (currentHealth <= 0)
+            return true;
+        else
+            return false;
+    }
+
     void OnCollisionEnter(Collision collision)
     {
-        //daca se atinge playerul de inamic ia damage - pt test
-        if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "PlayerBullet")
+        if (collision.gameObject.tag == "PlayerBullet")
         {
             TakeDamage(40);
         }
