@@ -6,10 +6,13 @@ public class Enemy2AnimationController : MonoBehaviour
 {
     [SerializeField]
     Animator animator;
+    Enemy2Script enemy2;
+
 
     void Start()
     {
         animator = GetComponent<Animator>();
+        enemy2 = gameObject.GetComponent("Enemy2Script") as Enemy2Script;
     }
 
     // Update is called once per frame
@@ -21,8 +24,15 @@ public class Enemy2AnimationController : MonoBehaviour
     void HandleAnimationInput()
     {
         animator.SetBool("isClose", Enemy2Script.isClose());
+        animator.SetBool("isDead", enemy2.isDead());
         
-
+        if (animator.GetBool("isDead") == true)
+        {
+            animator.SetBool("isRunning", false);
+            animator.SetBool("isClose", false);
+        }   
+        else 
+        {
         if (animator.GetBool("isClose") == false)
         {
             animator.SetBool("isRunning", true);
@@ -30,6 +40,7 @@ public class Enemy2AnimationController : MonoBehaviour
         else
         {
             animator.SetBool("isRunning", false);
-        }    
+        } 
+        }
     }
 }
