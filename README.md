@@ -1,8 +1,7 @@
 # ANUNT PENTRU RECENZIA DE LA SPRINT 4
 
 ```diff
-- Vom incarca raportul cu obiective indeplinite pentru sprintul 4 dupa 3 ianuarie.
-- Va multumim pentru intelegere, sarbatori fericite si numai note peste 5 in sesiune!
+- RAPORTUL PENTRU SPRINTUL 4 A FOST INCARCAT IN FOLDERUL "RAPOARTE" SI ARE DENUMIREA "RAPORT FINAL SPRINT 4.pdf"
 ```
 
 
