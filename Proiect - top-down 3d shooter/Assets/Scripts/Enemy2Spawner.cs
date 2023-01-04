@@ -19,12 +19,14 @@ public class Enemy2Spawner : MonoBehaviour
     {
         await Task.Delay(7000);
 
-        Vector3 spawnPosition = new Vector3(Random.Range(-50, 50), 0, Random.Range(-50, 50)); 
+        Vector3 spawnPosition = new Vector3(Random.Range(-50, 50), 0, Random.Range(-50, 50));
         GameObject enemy = Instantiate(Enemy2Prefab, spawnPosition, Quaternion.identity);
         enemy.GetComponent<HealthBar>().fill.fillAmount = 1;
         enemy.GetComponent<Canvas>().enabled = true;
 
     }
+
+    
 
     void Update()
     {

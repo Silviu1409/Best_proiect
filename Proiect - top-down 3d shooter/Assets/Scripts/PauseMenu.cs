@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -23,6 +24,8 @@ public class PauseMenu : MonoBehaviour
             gameIsPaused = !gameIsPaused;
             PauseGame();
         }
+
+        Console.Write(gameIsPaused);
 
     }
 
@@ -53,13 +56,14 @@ public class PauseMenu : MonoBehaviour
     public void LoadMenu()
     {
         Debug.Log("Loading menu...");
-        //Time.timeScale = 1;
-        //SceneManager.LoadScene(menu);
+        Time.timeScale = 1;
+        SceneManager.LoadScene(menu);
     }
 
     public void QuitGame()
     {
         Debug.Log("Quitting game...");
         Application.Quit();
+        //SceneManager.LoadScene(menu);
     }
 }
