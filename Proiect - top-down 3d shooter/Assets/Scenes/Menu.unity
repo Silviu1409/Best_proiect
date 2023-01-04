@@ -2942,20 +2942,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - name: trotinete
-    clip: {fileID: 8300000, guid: 1b3fb406c48751b45bcfa76850cf7751, type: 3}
-    volume: 0.25
-    pitch: 1
+  - name: 1
+    clip: {fileID: 8300000, guid: 9cc467bcd9ee30f4c95a4d5702077740, type: 3}
+    volume: 0
+    pitch: 0
     source: {fileID: 0}
-  - name: buci
-    clip: {fileID: 8300000, guid: 35d5c16e479ba2443a3f52c016ac2afe, type: 3}
-    volume: 0.25
-    pitch: 1
+  - name: 2
+    clip: {fileID: 8300000, guid: 437d2b69a233b2f41a309e20b4a83e4a, type: 3}
+    volume: 0
+    pitch: 0
     source: {fileID: 0}
-  - name: craci
-    clip: {fileID: 8300000, guid: 436681b8b205c9c4481ffc71f878daf5, type: 3}
-    volume: 0.25
-    pitch: 1
+  - name: 3
+    clip: {fileID: 8300000, guid: bacf8fd15fffec34d9699b8325952a14, type: 3}
+    volume: 0
+    pitch: 0
     source: {fileID: 0}
   musicMixerGroup: {fileID: -7405033597782297048, guid: aac8c36fc905fa841bac56bfa2db3ef1, type: 2}
   masterMixerGroup: {fileID: 24300002, guid: aac8c36fc905fa841bac56bfa2db3ef1, type: 2}
