@@ -1,10 +1,3 @@
-# ANUNT PENTRU RECENZIA DE LA SPRINT 4
-
-```diff
-- RAPORTUL PENTRU SPRINTUL 4 A FOST INCARCAT IN FOLDERUL "RAPOARTE" SI ARE DENUMIREA "RAPORT FINAL SPRINT 4.pdf"
-```
-
-
 # Proiect in Unity pentru Programarea Jocurilor
 
 ## Incarcare recenzii
