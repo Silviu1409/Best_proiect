@@ -38,6 +38,7 @@ public class GunScript : MonoBehaviour
             lastTimeShot = Time.time;
             //A new bullet will be generated and fired
             GameObject bullet = Instantiate(projectilePrefab, firingPoint.position, firingPoint.rotation);
+            bullet.tag = "PlayerBullet";
             bullet.transform.parent = _parent.transform;
         }
     }

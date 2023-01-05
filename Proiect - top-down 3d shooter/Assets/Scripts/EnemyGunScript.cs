@@ -36,6 +36,7 @@ public class EnemyGunScript : MonoBehaviour
             lastTimeShot = Time.time;
             //A new bullet will be generated and fired
             GameObject bullet = Instantiate(projectilePrefab, firingPoint.position, firingPoint.rotation);
+            bullet.tag = "EnemyBullet";
             bullet.transform.parent = _parent.transform;
         }
     }
